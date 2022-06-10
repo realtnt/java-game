@@ -20,14 +20,6 @@ public class WordGame {
     chooseWord();
   }
 
-  public ArrayList<String> getWords() {
-    return words;
-  }
-
-  public void addWord(String word) {
-    words.add(word);
-  }
-
   public void addGuess(Character guess) {
     guesses.add(Character.toLowerCase(guess));
     buildWord();
