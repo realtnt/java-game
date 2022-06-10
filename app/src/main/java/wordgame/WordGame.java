@@ -9,6 +9,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class WordGame {
+  private Scanner scanner = new Scanner(System.in);
+
   ArrayList<String> words = new ArrayList<String>();
   ArrayList<Character> guesses = new ArrayList<Character>();
   String chosenWord = "";
@@ -30,9 +32,7 @@ public class WordGame {
   }
 
   public void getUserGuess() {
-    Scanner scanner = new Scanner(System.in);
     addGuess(scanner.nextLine().toCharArray()[0]);
-    scanner.close();
   }
 
   public void printWord() {
