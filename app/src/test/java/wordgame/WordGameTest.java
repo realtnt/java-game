@@ -28,7 +28,7 @@ public class WordGameTest {
         Arrays.asList("python"));
     WordGame game = new WordGame(words);
 
-    assertEquals(game.getRenderedWord(), "p_____");
+    assertEquals(String.valueOf("p_____"), game.getRenderedWord());
   }
 
   @Test
@@ -57,13 +57,13 @@ public class WordGameTest {
         Arrays.asList("python"));
     WordGame game = new WordGame(words);
 
-    assertEquals(game.getRenderedWord(), "p_____");
+    assertEquals(String.valueOf("p_____"), game.getRenderedWord());
     game.addGuess('a');
-    assertEquals(game.getRenderedWord(), "p_____");
+    assertEquals(String.valueOf("p_____"), game.getRenderedWord());
     game.addGuess('y');
-    assertEquals(game.getRenderedWord(), "py____");
+    assertEquals(String.valueOf("py____"), game.getRenderedWord());
     game.addGuess('h');
-    assertEquals(game.getRenderedWord(), "py_h__");
+    assertEquals(String.valueOf("py_h__"), game.getRenderedWord());
   }
 
   @Test
@@ -72,9 +72,9 @@ public class WordGameTest {
         Arrays.asList("java"));
     WordGame game = new WordGame(words);
 
-    assertEquals(game.getRenderedWord(), "j___");
+    assertEquals(String.valueOf("j___"), game.getRenderedWord());
     game.addGuess('a');
-    assertEquals(game.getRenderedWord(), "ja_a");
+    assertEquals(String.valueOf("ja_a"), game.getRenderedWord());
   }
 
   @Test
@@ -83,28 +83,46 @@ public class WordGameTest {
         Arrays.asList("java"));
     WordGame game = new WordGame(words);
 
-    assertEquals(game.getRenderedWord(), "j___");
+    assertEquals(String.valueOf("j___"), game.getRenderedWord());
     assertFalse(game.checkWin());
     game.addGuess('a');
-    assertEquals(game.getRenderedWord(), "ja_a");
+    assertEquals(String.valueOf("ja_a"), game.getRenderedWord());
     assertFalse(game.checkWin());
     game.addGuess('v');
-    assertEquals(game.getRenderedWord(), "java");
+    assertEquals(String.valueOf("java"), game.getRenderedWord());
     assertTrue(game.checkWin());
   }
 
   @Test
-  public void userEntersALetter() {
+  public void methodToGetUserInput() {
     String userInput = String.format("a");
     ByteArrayInputStream fakeIn = new ByteArrayInputStream(userInput.getBytes());
     System.setIn(fakeIn);
 
-    String expected = "Ja_a";
+    ArrayList<String> words = new ArrayList<String>(
+        Arrays.asList("java"));
+    WordGame game = new WordGame(words);
+
+    game.getUserGuess();
+
+    assertEquals(Character.valueOf('a'), game.getGuesses().get(1));
+  }
+
+  @Test
+  public void methodToPrintOutWord() {
+    ArrayList<String> words = new ArrayList<String>(
+        Arrays.asList("java"));
+    WordGame game = new WordGame(words);
+
+    String expected = "j___";
     ByteArrayOutputStream fakeOut = new ByteArrayOutputStream();
     PrintStream fakeStream = new PrintStream(fakeOut);
     System.setOut(fakeStream);
 
-    String actual = "Ja_a";
+    game.printWord();
+
+    String[] lines = fakeOut.toString().split(System.lineSeparator());
+    String actual = lines[lines.length - 1];
 
     assertEquals(expected, actual);
   }

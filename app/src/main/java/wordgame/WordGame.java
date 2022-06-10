@@ -29,6 +29,16 @@ public class WordGame {
     return !renderedWord.contains("_");
   }
 
+  public void getUserGuess() {
+    Scanner scanner = new Scanner(System.in);
+    addGuess(scanner.nextLine().toCharArray()[0]);
+    scanner.close();
+  }
+
+  public void printWord() {
+    System.out.println(renderedWord);
+  }
+
   // GETTERS
   public String getChosenWord() {
     return chosenWord;
@@ -73,13 +83,12 @@ public class WordGame {
     ArrayList<String> words = new ArrayList<String>(
         Arrays.asList("python", "ruby", "java", "actionscript", "ada", "typescript"));
     WordGame game = new WordGame(words);
-    Scanner scanner = new Scanner(System.in);
 
-    System.out.println(game.getRenderedWord());
+    game.printWord();
     for (Integer i = 1; i <= attempts; i++) {
       System.out.println("Give me a letter: ");
-      game.addGuess(scanner.nextLine().toCharArray()[0]);
-      System.out.println(game.getRenderedWord());
+      game.getUserGuess();
+      game.printWord();
       if (game.checkWin()) {
         System.out.println("You Won!");
         break;
@@ -87,6 +96,5 @@ public class WordGame {
         System.out.println("You Lost!");
       }
     }
-    scanner.close();
   }
 }
