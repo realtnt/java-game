@@ -4,40 +4,24 @@
 package wordgame;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
 public class WordGame {
-
   ArrayList<String> words = new ArrayList<String>();
   ArrayList<Character> guesses = new ArrayList<Character>();
-  String chosenWord;
-  String renderedWord;
+  String chosenWord = "";
+  String renderedWord = "";
   static Integer attempts = 10;
 
-  public void chooseWord() {
-    Random random = new Random();
-    Integer randomIndex = random.nextInt(words.size());
-    chosenWord = words.get(randomIndex).toLowerCase();
-    guesses.add(chosenWord.charAt(0));
+  public WordGame(ArrayList<String> wordList) {
+    words = wordList;
+    chooseWord();
   }
 
   public ArrayList<String> getWords() {
     return words;
-  }
-
-  public void buildWord() {
-    char[] chosenWordArray = chosenWord.toCharArray();
-    StringBuilder sb = new StringBuilder();
-
-    for (Character ch : chosenWordArray) {
-      if (guesses.contains(ch)) {
-        sb.append(ch);
-      } else {
-        sb.append('_');
-      }
-    }
-    renderedWord = sb.toString();
   }
 
   public void addWord(String word) {
@@ -46,6 +30,7 @@ public class WordGame {
 
   public void addGuess(Character guess) {
     guesses.add(Character.toLowerCase(guess));
+    buildWord();
   }
 
   public Boolean checkWin() {
@@ -69,22 +54,39 @@ public class WordGame {
     return renderedWord;
   }
 
+  // PRIVATE METHODS
+  private void chooseWord() {
+    Random random = new Random();
+    Integer randomIndex = random.nextInt(words.size());
+    chosenWord = words.get(randomIndex).toLowerCase();
+    guesses.add(chosenWord.charAt(0));
+    buildWord();
+  }
+
+  private void buildWord() {
+    char[] chosenWordArray = chosenWord.toCharArray();
+    StringBuilder sb = new StringBuilder();
+
+    for (Character ch : chosenWordArray) {
+      if (guesses.contains(ch)) {
+        sb.append(ch);
+      } else {
+        sb.append('_');
+      }
+    }
+    renderedWord = sb.toString();
+  }
+
   public static void main(String[] args) {
-    WordGame game = new WordGame();
+    ArrayList<String> words = new ArrayList<String>(
+        Arrays.asList("python", "ruby", "java", "actionscript", "ada", "typescript"));
+    WordGame game = new WordGame(words);
     Scanner scanner = new Scanner(System.in);
 
-    game.addWord("Python");
-    game.addWord("Java");
-    game.addWord("Ruby");
-    game.addWord("ActionScript");
-    game.chooseWord();
-    game.buildWord();
     System.out.println(game.getRenderedWord());
-
     for (Integer i = 1; i <= attempts; i++) {
       System.out.println("Give me a letter: ");
       game.addGuess(scanner.nextLine().toCharArray()[0]);
-      game.buildWord();
       System.out.println(game.getRenderedWord());
       if (game.checkWin()) {
         System.out.println("You Won!");

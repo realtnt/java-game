@@ -15,88 +15,81 @@ import java.util.Arrays;
 public class WordGameTest {
   @Test
   public void appPicksARandomWord() {
-    WordGame game = new WordGame();
     ArrayList<String> words = new ArrayList<String>(
-        Arrays.asList("Python", "Ruby", "Java"));
-
-    for (String word : words) {
-      game.addWord(word);
-    }
-    game.chooseWord();
+        Arrays.asList("python", "ruby", "java"));
+    WordGame game = new WordGame(words);
 
     assertTrue(words.contains(game.getChosenWord()));
   }
 
   @Test
   public void appShowsWordWithFirstLetterOnly() {
-    WordGame game = new WordGame();
-    game.addWord("Python");
-    game.chooseWord();
-    game.buildWord();
-    assertEquals(game.getRenderedWord(), "P_____");
+    ArrayList<String> words = new ArrayList<String>(
+        Arrays.asList("python"));
+    WordGame game = new WordGame(words);
+
+    assertEquals(game.getRenderedWord(), "p_____");
   }
 
   @Test
   public void appStartWithTenAttempts() {
-    WordGame game = new WordGame();
+    ArrayList<String> words = new ArrayList<String>(
+        Arrays.asList("python"));
+    WordGame game = new WordGame(words);
 
     assertEquals(Integer.valueOf(10), game.getAttempts());
   }
 
   @Test
   public void appUsersGuessIsAddedToList() {
-    WordGame game = new WordGame();
+    ArrayList<String> words = new ArrayList<String>(
+        Arrays.asList("java"));
+    WordGame game = new WordGame(words);
 
     game.addGuess('a');
 
-    assertEquals(game.getGuesses().get(0), Character.valueOf('a'));
+    assertEquals(Character.valueOf('a'), game.getGuesses().get(1));
   }
 
   @Test
   public void appRendersWordCorrectlyGivenGuesses() {
-    WordGame game = new WordGame();
-    game.addWord("Python");
-    game.chooseWord();
-    game.buildWord();
-    assertEquals(game.getRenderedWord(), "P_____");
+    ArrayList<String> words = new ArrayList<String>(
+        Arrays.asList("python"));
+    WordGame game = new WordGame(words);
+
+    assertEquals(game.getRenderedWord(), "p_____");
     game.addGuess('a');
-    game.buildWord();
-    assertEquals(game.getRenderedWord(), "P_____");
+    assertEquals(game.getRenderedWord(), "p_____");
     game.addGuess('y');
-    game.buildWord();
-    assertEquals(game.getRenderedWord(), "Py____");
+    assertEquals(game.getRenderedWord(), "py____");
     game.addGuess('h');
-    game.buildWord();
-    assertEquals(game.getRenderedWord(), "Py_h__");
+    assertEquals(game.getRenderedWord(), "py_h__");
   }
 
   @Test
   public void appRendersWordCorrectlyGivenGuesses2() {
-    WordGame game = new WordGame();
-    game.addWord("Java");
-    game.chooseWord();
-    game.buildWord();
-    assertEquals(game.getRenderedWord(), "J___");
+    ArrayList<String> words = new ArrayList<String>(
+        Arrays.asList("java"));
+    WordGame game = new WordGame(words);
+
+    assertEquals(game.getRenderedWord(), "j___");
     game.addGuess('a');
-    game.buildWord();
-    assertEquals(game.getRenderedWord(), "Ja_a");
+    assertEquals(game.getRenderedWord(), "ja_a");
   }
 
   @Test
   public void methodChecksIfPlayerHasWon() {
-    WordGame game = new WordGame();
-    game.addWord("Java");
-    game.chooseWord();
-    game.buildWord();
-    assertEquals(game.getRenderedWord(), "J___");
+    ArrayList<String> words = new ArrayList<String>(
+        Arrays.asList("java"));
+    WordGame game = new WordGame(words);
+
+    assertEquals(game.getRenderedWord(), "j___");
     assertFalse(game.checkWin());
     game.addGuess('a');
-    game.buildWord();
-    assertEquals(game.getRenderedWord(), "Ja_a");
+    assertEquals(game.getRenderedWord(), "ja_a");
     assertFalse(game.checkWin());
     game.addGuess('v');
-    game.buildWord();
-    assertEquals(game.getRenderedWord(), "Java");
+    assertEquals(game.getRenderedWord(), "java");
     assertTrue(game.checkWin());
   }
 
