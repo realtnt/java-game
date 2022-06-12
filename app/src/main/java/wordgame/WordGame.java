@@ -4,97 +4,106 @@
 package wordgame;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
-import java.util.Scanner;
 
 public class WordGame {
-  private Scanner scanner = new Scanner(System.in);
+  public final Integer ATTEMPTS = 3;
+  private ArrayList<Player> players = new ArrayList<Player>();
+  private Player currentPlayer;
+  private Player winner;
+  private WordChooser chooser;
 
-  ArrayList<String> words = new ArrayList<String>();
-  ArrayList<Character> guesses = new ArrayList<Character>();
-  String chosenWord = "";
-  String renderedWord = "";
-  static Integer attempts = 10;
-
-  public WordGame(ArrayList<String> wordList) {
-    words = wordList;
-    chooseWord();
+  public void addPlayer(String name) {
+    chooser = new WordChooser();
+    Player player = new Player(ATTEMPTS, chooser.getRandomWordFromDictionary());
+    player.setName(name);
+    players.add(player);
   }
 
-  public void addGuess(Character guess) {
-    guesses.add(Character.toLowerCase(guess));
-    buildWord();
+  public void startGame() {
+    Random random = new Random();
+    Integer randomIndex = random.nextInt(getNumberOfPlayers());
+    currentPlayer = players.get(randomIndex);
   }
 
-  public Boolean checkWin() {
-    return !renderedWord.contains("_");
+  public void reset() {
+    currentPlayer = null;
+    winner = null;
+    players.clear();
   }
 
-  public void getUserGuess() {
-    addGuess(scanner.nextLine().toCharArray()[0]);
+  public Player getNextPlayer() {
+    Integer index = (currentPlayer.getPlayerNumber()) % getNumberOfPlayers();
+    currentPlayer = players.get(index);
+    return currentPlayer;
   }
 
-  public void printWord() {
-    System.out.println(renderedWord);
+  public Boolean finished() {
+    Integer playersOutOfTheGame = 0;
+    for (Player player : players) {
+      if (player.isWinner()) {
+        winner = player;
+        return true;
+      }
+      if (player.getAttemptsRemaining() == 0) {
+        playersOutOfTheGame++;
+      }
+    }
+    if (playersOutOfTheGame == getNumberOfPlayers() - 1) {
+      for (Player player : players) {
+        if (player.getAttemptsRemaining() > 0) {
+          winner = player;
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  public Integer getCurrentPlayerIndex() {
+    return currentPlayer.getPlayerNumber();
   }
 
   // GETTERS
-  public String getChosenWord() {
-    return chosenWord;
+  public Player getWinner() {
+    return winner;
   }
 
-  public Integer getAttempts() {
-    return attempts;
+  public Player getCurrentPlayer() {
+    return currentPlayer;
   }
 
-  public ArrayList<Character> getGuesses() {
-    return guesses;
+  public ArrayList<Player> getPlayers() {
+    return players;
   }
 
-  public String getRenderedWord() {
-    return renderedWord;
-  }
-
-  // PRIVATE METHODS
-  private void chooseWord() {
-    Random random = new Random();
-    Integer randomIndex = random.nextInt(words.size());
-    chosenWord = words.get(randomIndex).toLowerCase();
-    guesses.add(chosenWord.charAt(0));
-    buildWord();
-  }
-
-  private void buildWord() {
-    char[] chosenWordArray = chosenWord.toCharArray();
-    StringBuilder sb = new StringBuilder();
-
-    for (Character ch : chosenWordArray) {
-      if (guesses.contains(ch)) {
-        sb.append(ch);
-      } else {
-        sb.append('_');
-      }
-    }
-    renderedWord = sb.toString();
+  public Integer getNumberOfPlayers() {
+    return players.size();
   }
 
   public static void main(String[] args) {
-    ArrayList<String> words = new ArrayList<String>(
-        Arrays.asList("python", "ruby", "java", "actionscript", "ada", "typescript"));
-    WordGame game = new WordGame(words);
+    UserInterface ui = new UserInterface();
+    WordGame game = new WordGame();
+    Player currentPlayer;
 
-    game.printWord();
-    for (Integer i = 1; i <= attempts; i++) {
-      System.out.println("Give me a letter: ");
-      game.getUserGuess();
-      game.printWord();
-      if (game.checkWin()) {
-        System.out.println("You Won!");
-        break;
-      } else if (!game.checkWin() && i == attempts) {
-        System.out.println("You Lost!");
-      }
+    ui.showWelcomeMessage();
+
+    ui.registerPlayers(game);
+
+    game.startGame();
+
+    ui.printDivider();
+
+    while (!game.finished()) {
+      currentPlayer = game.getNextPlayer();
+      ui.promptPlayer(currentPlayer);
+      ui.renderWord(currentPlayer);
+      ui.showUserGuesses(currentPlayer);
+      ui.getUserGuess(currentPlayer);
+      ui.showAttemptsRemaining(currentPlayer);
+      ui.printDivider();
     }
+
+    ui.showWinner(game.getWinner());
   }
 }

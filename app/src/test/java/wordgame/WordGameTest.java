@@ -3,127 +3,76 @@
  */
 package wordgame;
 
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Arrays;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class WordGameTest {
-  @Test
-  public void appPicksARandomWord() {
-    ArrayList<String> words = new ArrayList<String>(
-        Arrays.asList("python", "ruby", "java"));
-    WordGame game = new WordGame(words);
+  WordChooser wordChooserMock;
+  Player playerMock1, playerMock2;
+  WordGame game;
 
-    assertTrue(words.contains(game.getChosenWord()));
+  @Before
+  public void setup() {
+    wordChooserMock = mock(WordChooser.class);
+
+    playerMock1 = mock(Player.class);
+    when(playerMock1.isWinner()).thenReturn(true);
+    when(playerMock1.getName()).thenReturn("Jonny");
+    when(playerMock1.getPoints()).thenReturn(0);
+    when(playerMock1.getWord()).thenReturn("Python");
+    when(playerMock1.getAttemptsRemaining()).thenReturn(10);
+
+    playerMock2 = mock(Player.class);
+    when(playerMock2.isWinner()).thenReturn(true);
+    when(playerMock2.getName()).thenReturn("Jimmy");
+    when(playerMock2.getPoints()).thenReturn(0);
+    when(playerMock2.getWord()).thenReturn("Python");
+    when(playerMock2.getAttemptsRemaining()).thenReturn(10);
+
+    game = new WordGame();
+    game.addPlayer("Player 1");
   }
 
   @Test
-  public void appShowsWordWithFirstLetterOnly() {
-    ArrayList<String> words = new ArrayList<String>(
-        Arrays.asList("python"));
-    WordGame game = new WordGame(words);
-
-    assertEquals(String.valueOf("p_____"), game.getRenderedWord());
+  public void checkPlayersAreAddedSuccessfully() {
+    assertEquals(Integer.valueOf(1), game.getNumberOfPlayers());
   }
 
   @Test
-  public void appStartWithTenAttempts() {
-    ArrayList<String> words = new ArrayList<String>(
-        Arrays.asList("python"));
-    WordGame game = new WordGame(words);
+  public void testStartGame() {
+    // game.addPlayer("Jimmy");
+    // game.addPlayer("Jonny");
+    // game.addPlayer("Louise");
 
-    assertEquals(Integer.valueOf(10), game.getAttempts());
+    // game.startGame();
+
+    // assertTrue(game.getCurrentPlayerIndex() >= 0);
+    // assertTrue(game.getCurrentPlayerIndex() < game.getNumberOfPlayers());
   }
 
   @Test
-  public void appUsersGuessIsAddedToList() {
-    ArrayList<String> words = new ArrayList<String>(
-        Arrays.asList("java"));
-    WordGame game = new WordGame(words);
+  public void testResetGame() {
+    game.startGame();
 
-    game.addGuess('a');
+    game.reset();
 
-    assertEquals(Character.valueOf('a'), game.getGuesses().get(1));
+    assertEquals(Integer.valueOf(0), game.getNumberOfPlayers());
+    assertEquals(null, game.getCurrentPlayer());
+    assertEquals(null, game.getWinner());
   }
 
   @Test
-  public void appRendersWordCorrectlyGivenGuesses() {
-    ArrayList<String> words = new ArrayList<String>(
-        Arrays.asList("python"));
-    WordGame game = new WordGame(words);
-
-    assertEquals(String.valueOf("p_____"), game.getRenderedWord());
-    game.addGuess('a');
-    assertEquals(String.valueOf("p_____"), game.getRenderedWord());
-    game.addGuess('y');
-    assertEquals(String.valueOf("py____"), game.getRenderedWord());
-    game.addGuess('h');
-    assertEquals(String.valueOf("py_h__"), game.getRenderedWord());
+  public void testGetNextPlayer() {
   }
 
   @Test
-  public void appRendersWordCorrectlyGivenGuesses2() {
-    ArrayList<String> words = new ArrayList<String>(
-        Arrays.asList("java"));
-    WordGame game = new WordGame(words);
-
-    assertEquals(String.valueOf("j___"), game.getRenderedWord());
-    game.addGuess('a');
-    assertEquals(String.valueOf("ja_a"), game.getRenderedWord());
+  public void testFinishedWithAttemptsRemaining() {
   }
 
   @Test
-  public void methodChecksIfPlayerHasWon() {
-    ArrayList<String> words = new ArrayList<String>(
-        Arrays.asList("java"));
-    WordGame game = new WordGame(words);
-
-    assertEquals(String.valueOf("j___"), game.getRenderedWord());
-    assertFalse(game.checkWin());
-    game.addGuess('a');
-    assertEquals(String.valueOf("ja_a"), game.getRenderedWord());
-    assertFalse(game.checkWin());
-    game.addGuess('v');
-    assertEquals(String.valueOf("java"), game.getRenderedWord());
-    assertTrue(game.checkWin());
-  }
-
-  @Test
-  public void methodToGetUserInput() {
-    String userInput = String.format("a");
-    ByteArrayInputStream fakeIn = new ByteArrayInputStream(userInput.getBytes());
-    System.setIn(fakeIn);
-
-    ArrayList<String> words = new ArrayList<String>(
-        Arrays.asList("java"));
-    WordGame game = new WordGame(words);
-
-    game.getUserGuess();
-
-    assertEquals(Character.valueOf('a'), game.getGuesses().get(1));
-  }
-
-  @Test
-  public void methodToPrintOutWord() {
-    ArrayList<String> words = new ArrayList<String>(
-        Arrays.asList("java"));
-    WordGame game = new WordGame(words);
-
-    String expected = "j___";
-    ByteArrayOutputStream fakeOut = new ByteArrayOutputStream();
-    PrintStream fakeStream = new PrintStream(fakeOut);
-    System.setOut(fakeStream);
-
-    game.printWord();
-
-    String[] lines = fakeOut.toString().split(System.lineSeparator());
-    String actual = lines[lines.length - 1];
-
-    assertEquals(expected, actual);
+  public void testFinishedWithAWinner() {
   }
 }

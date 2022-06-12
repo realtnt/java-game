@@ -1,0 +1,62 @@
+Date : 2022-06-12 18:29:13
+Directory : /home/tnt/gitDir/java-game
+Total : 24 files,  930 codes, 0 comments, 149 blanks, all 1079 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| java     |         22 |        894 |          0 |        141 |      1,035 |
+| Gradle   |          2 |         36 |          0 |          8 |         44 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                         | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                            |         24 |        930 |          0 |        149 |      1,079 |
+| app                                                                          |         23 |        920 |          0 |        147 |      1,067 |
+| app/bin                                                                      |         11 |        358 |          0 |          2 |        360 |
+| app/bin/main                                                                 |          6 |        211 |          0 |          1 |        212 |
+| app/bin/main/wordgame                                                        |          6 |        211 |          0 |          1 |        212 |
+| app/bin/test                                                                 |          5 |        147 |          0 |          1 |        148 |
+| app/bin/test/wordgame                                                        |          5 |        147 |          0 |          1 |        148 |
+| app/src                                                                      |         11 |        536 |          0 |        139 |        675 |
+| app/src/main                                                                 |          6 |        304 |          0 |         70 |        374 |
+| app/src/main/java                                                            |          6 |        304 |          0 |         70 |        374 |
+| app/src/main/java/wordgame                                                   |          6 |        304 |          0 |         70 |        374 |
+| app/src/test                                                                 |          5 |        232 |          0 |         69 |        301 |
+| app/src/test/java                                                            |          5 |        232 |          0 |         69 |        301 |
+| app/src/test/java/wordgame                                                   |          5 |        232 |          0 |         69 |        301 |
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                     | language | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /home/tnt/gitDir/java-game/app/bin/main/wordgame/Helper.class                | java     |         11 |          0 |          0 |         11 |
+| /home/tnt/gitDir/java-game/app/bin/main/wordgame/Masker.class                | java     |         22 |          0 |          0 |         22 |
+| /home/tnt/gitDir/java-game/app/bin/main/wordgame/Player.class                | java     |         30 |          0 |          0 |         30 |
+| /home/tnt/gitDir/java-game/app/bin/main/wordgame/UserInterface.class         | java     |         77 |          0 |          1 |         78 |
+| /home/tnt/gitDir/java-game/app/bin/main/wordgame/WordChooser.class           | java     |         17 |          0 |          0 |         17 |
+| /home/tnt/gitDir/java-game/app/bin/main/wordgame/WordGame.class              | java     |         54 |          0 |          0 |         54 |
+| /home/tnt/gitDir/java-game/app/bin/test/wordgame/MaskerTest.class            | java     |         16 |          0 |          0 |         16 |
+| /home/tnt/gitDir/java-game/app/bin/test/wordgame/PlayerTest.class            | java     |         34 |          0 |          0 |         34 |
+| /home/tnt/gitDir/java-game/app/bin/test/wordgame/UserInterfaceTest.class     | java     |         37 |          0 |          1 |         38 |
+| /home/tnt/gitDir/java-game/app/bin/test/wordgame/WordChooserTest.class       | java     |         16 |          0 |          0 |         16 |
+| /home/tnt/gitDir/java-game/app/bin/test/wordgame/WordGameTest.class          | java     |         44 |          0 |          0 |         44 |
+| /home/tnt/gitDir/java-game/app/build.gradle                                  | Gradle   |         26 |          0 |          6 |         32 |
+| /home/tnt/gitDir/java-game/app/src/main/java/wordgame/Helper.java            | java     |         11 |          0 |          3 |         14 |
+| /home/tnt/gitDir/java-game/app/src/main/java/wordgame/Masker.java            | java     |         17 |          0 |          5 |         22 |
+| /home/tnt/gitDir/java-game/app/src/main/java/wordgame/Player.java            | java     |         77 |          0 |         18 |         95 |
+| /home/tnt/gitDir/java-game/app/src/main/java/wordgame/UserInterface.java     | java     |         78 |          0 |         17 |         95 |
+| /home/tnt/gitDir/java-game/app/src/main/java/wordgame/WordChooser.java       | java     |         28 |          0 |          6 |         34 |
+| /home/tnt/gitDir/java-game/app/src/main/java/wordgame/WordGame.java          | java     |         93 |          0 |         21 |        114 |
+| /home/tnt/gitDir/java-game/app/src/test/java/wordgame/MaskerTest.java        | java     |         15 |          0 |          4 |         19 |
+| /home/tnt/gitDir/java-game/app/src/test/java/wordgame/PlayerTest.java        | java     |         51 |          0 |         13 |         64 |
+| /home/tnt/gitDir/java-game/app/src/test/java/wordgame/UserInterfaceTest.java | java     |         82 |          0 |         27 |        109 |
+| /home/tnt/gitDir/java-game/app/src/test/java/wordgame/WordChooserTest.java   | java     |         17 |          0 |          7 |         24 |
+| /home/tnt/gitDir/java-game/app/src/test/java/wordgame/WordGameTest.java      | java     |         67 |          0 |         18 |         85 |
+| /home/tnt/gitDir/java-game/settings.gradle                                   | Gradle   |         10 |          0 |          2 |         12 |
+| Total                                                                        |          |        930 |          0 |        149 |      1,079 |
++------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
