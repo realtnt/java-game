@@ -13,13 +13,6 @@ public class WordGame {
   private Player winner;
   private WordChooser chooser;
 
-  public void addPlayer(String name) {
-    chooser = new WordChooser();
-    Player player = new Player(ATTEMPTS, chooser.getRandomWordFromDictionary());
-    player.setName(name);
-    players.add(player);
-  }
-
   public void startGame() {
     Random random = new Random();
     Integer randomIndex = random.nextInt(getNumberOfPlayers());
@@ -30,6 +23,13 @@ public class WordGame {
     currentPlayer = null;
     winner = null;
     players.clear();
+  }
+
+  public void addPlayer(String name) {
+    chooser = new WordChooser();
+    Player player = new Player(ATTEMPTS, chooser.getRandomWordFromDictionary());
+    player.setName(name);
+    players.add(player);
   }
 
   public Player getNextPlayer() {

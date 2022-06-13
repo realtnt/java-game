@@ -136,15 +136,4 @@ public class UserInterfaceTest {
 
     assertEquals(expected, actual);
   }
-
-  @Test
-  public void testShowPlayerStatus() {
-    // List<Object> guesses = Arrays.asList(Arrays.asList(new Character[] { 'a', 'b'
-    // }));
-    // when(playerMock.getGuesses()).thenReturn(guesses);
-    // when(playerMock.getPoints()).thenReturn(0);
-    // when(playerMock.getWord()).thenReturn("Python");
-    // when(playerMock.getAttemptsRemaining()).thenReturn(10);
-
-  }
 }

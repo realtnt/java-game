@@ -43,14 +43,15 @@ public class WordGameTest {
 
   @Test
   public void testStartGame() {
-    // game.addPlayer("Jimmy");
-    // game.addPlayer("Jonny");
-    // game.addPlayer("Louise");
+    game.addPlayer("Jimmy");
+    game.addPlayer("Jonny");
+    game.addPlayer("Louise");
 
-    // game.startGame();
-
-    // assertTrue(game.getCurrentPlayerIndex() >= 0);
-    // assertTrue(game.getCurrentPlayerIndex() < game.getNumberOfPlayers());
+    game.startGame();
+    Integer players = game.getNumberOfPlayers();
+    Integer chosen = game.getCurrentPlayerIndex();
+    assertTrue(game.getCurrentPlayerIndex() >= 0);
+    assertTrue(game.getCurrentPlayerIndex() < game.getNumberOfPlayers());
   }
 
   @Test
